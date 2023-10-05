@@ -1,0 +1,75 @@
+import { GoalService } from "../services/goalService";
+import { Request, Response } from "express";
+import { commanResponse } from "../common/common";
+import { z } from "zod";
+
+const goalService: GoalService = new GoalService();
+
+const GoalInput = z.object({
+  goal: z.string().min(2),
+});
+
+const createGoal = async (req: Request, res: Response) => {
+  try {
+    let payload = GoalInput.safeParse(req.body);
+    if (!payload.success) {
+      return res.status(411).json(
+        commanResponse({
+          success: false,
+          message: payload.error.issues[0].message,
+          err: payload.error.issues,
+        })
+      );
+    }
+
+    let userId = req.headers.userId;
+
+    if (typeof userId === "string") {
+      let response = await goalService.createGoal({
+        goal: payload.data.goal,
+        userId: userId,
+      });
+      return res.status(201).json(
+        commanResponse({
+          data: response,
+          message: "successfully created a goal",
+          success: true,
+        })
+      );
+    }
+  } catch (error) {
+    return res.status(500).json(
+      commanResponse({
+        message: "Something went wrong in the creation of goal",
+        success: false,
+      })
+    );
+  }
+};
+
+const getGoals = async (req: Request, res: Response) => {
+  try {
+    let userId = req.headers.userId;
+
+    if (typeof userId === "string") {
+      let response = await goalService.getAllGoal(userId);
+
+      return res.status(200).json(
+        commanResponse({
+          data: response,
+          message: "successfully fetched all goals",
+          success: true,
+        })
+      );
+    }
+  } catch (error) {
+    return res.status(500).json(
+      commanResponse({
+        message: "Something went wrong in the fetched of goals",
+        success: false,
+      })
+    );
+  }
+};
+
+export { createGoal, getGoals };

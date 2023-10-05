@@ -1,0 +1,55 @@
+.title {
+  text-align: center;
+  font-weight: bold;
+  display: block;
+  font-size: 1.2rem;
+  margin: 0.5rem 0rem 1rem 0rem;
+}
+
+.field {
+  margin-bottom: 1.2rem;
+}
+
+.field label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.field input {
+  display: block;
+  width: 100%;
+  border: 1px solid #ccc;
+  font: inherit;
+  line-height: 1.5rem;
+  padding: 0.5rem;
+  background-color: transparent;
+}
+.field input:focus {
+  outline: none;
+  background: #fad0ec;
+  border-color: #8b005d;
+}
+
+.field.isValid label {
+  color: red;
+}
+
+.field.isValid input {
+  border: 1px solid red;
+  background-color: salmon;
+}
+
+.bottom {
+  text-align: right;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.bottom p {
+  display: inline;
+}
+
+/* .bottom a {
+    text-decoration: none;
+  } */
