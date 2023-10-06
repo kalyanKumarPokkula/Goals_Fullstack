@@ -27,7 +27,11 @@ class GoalRepository {
     markAsDone(goalId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                let goal = yield goal_1.Goal.findByIdAndUpdate(goalId, { done: true });
+                let goal = yield goal_1.Goal.findById(goalId);
+                if (goal) {
+                    goal.done = true;
+                    yield goal.save();
+                }
                 return goal;
             }
             catch (error) {

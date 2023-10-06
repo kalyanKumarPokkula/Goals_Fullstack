@@ -72,4 +72,28 @@ const getGoals = async (req: Request, res: Response) => {
   }
 };
 
-export { createGoal, getGoals };
+const markAsDone = async (req: Request, res: Response) => {
+  try {
+    let goalId = req.params.done;
+
+    let response = await goalService.markGoalAsDone(goalId);
+    if (response) {
+      return res.status(200).json(
+        commanResponse({
+          data: response,
+          message: "successfully fetched all goals",
+          success: true,
+        })
+      );
+    }
+  } catch (error) {
+    return res.status(500).json(
+      commanResponse({
+        message: "Something went wrong making goal done as true",
+        success: false,
+      })
+    );
+  }
+};
+
+export { createGoal, getGoals, markAsDone };

@@ -2,26 +2,17 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import "./Nav.css";
 import { useNavigate } from "react-router-dom";
 import { authState } from "../../Store/AuthState";
+import { goalState } from "../../Store/GoalState";
 
 const Nav = () => {
   const navigator = useNavigate();
   const user = useRecoilValue(authState);
   const setAuth = useSetRecoilState(authState);
+  const setGoal = useSetRecoilState(goalState);
+  console.log(user);
 
   return (
     <>
-      {!user.username && (
-        <div className="nav">
-          <div>
-            <h3 onClick={() => navigator("/")}>Goals</h3>
-          </div>
-          <div>
-            <button className="button" onClick={() => navigator("/login")}>
-              Log In
-            </button>
-          </div>
-        </div>
-      )}
       {user.username && (
         <div className="nav">
           <div>
@@ -42,11 +33,24 @@ const Nav = () => {
               className="button"
               onClick={() => {
                 localStorage.setItem("token", "");
-                setAuth({ token: null, username: null });
+                setAuth({ username: null });
+                setGoal([]);
                 navigator("/login");
               }}
             >
               Log out
+            </button>
+          </div>
+        </div>
+      )}
+      {!user.username && (
+        <div className="nav">
+          <div>
+            <h3 onClick={() => navigator("/")}>Goals</h3>
+          </div>
+          <div>
+            <button className="button" onClick={() => navigator("/login")}>
+              Log In
             </button>
           </div>
         </div>

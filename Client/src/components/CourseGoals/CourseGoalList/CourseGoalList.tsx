@@ -27,7 +27,7 @@ const CourseGoalList = () => {
     }
 
     getTodo();
-  });
+  }, []);
 
   return (
     <>

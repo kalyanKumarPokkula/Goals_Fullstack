@@ -25,7 +25,6 @@ const signInInput = zod_1.z.object({
 });
 const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log(req.body);
         let payload = signUpInput.safeParse(req.body);
         if (!payload.success) {
             return res
@@ -60,7 +59,6 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.signUp = signUp;
 const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log(req.body);
         let payload = signInInput.safeParse(req.body);
         if (!payload.success) {
             return res

@@ -18,8 +18,6 @@ const signInInput = z.object({
 
 const signUp = async (req: Request, res: Response) => {
   try {
-    console.log(req.body);
-
     let payload = signUpInput.safeParse(req.body);
     if (!payload.success) {
       return res
@@ -61,8 +59,6 @@ const signUp = async (req: Request, res: Response) => {
 
 const signIn = async (req: Request, res: Response) => {
   try {
-    console.log(req.body);
-
     let payload = signInInput.safeParse(req.body);
     if (!payload.success) {
       return res

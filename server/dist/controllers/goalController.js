@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getGoals = exports.createGoal = void 0;
+exports.markAsDone = exports.getGoals = exports.createGoal = void 0;
 const goalService_1 = require("../services/goalService");
 const common_1 = require("../common/common");
 const zod_1 = require("zod");
@@ -68,3 +68,23 @@ const getGoals = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getGoals = getGoals;
+const markAsDone = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let goalId = req.params.done;
+        let response = yield goalService.markGoalAsDone(goalId);
+        if (response) {
+            return res.status(200).json((0, common_1.commanResponse)({
+                data: response,
+                message: "successfully fetched all goals",
+                success: true,
+            }));
+        }
+    }
+    catch (error) {
+        return res.status(500).json((0, common_1.commanResponse)({
+            message: "Something went wrong making goal done as true",
+            success: false,
+        }));
+    }
+});
+exports.markAsDone = markAsDone;

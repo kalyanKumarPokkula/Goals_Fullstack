@@ -13,7 +13,11 @@ export class GoalRepository {
 
   async markAsDone(goalId: string) {
     try {
-      let goal = await Goal.findByIdAndUpdate(goalId, { done: true });
+      let goal = await Goal.findById(goalId);
+      if (goal) {
+        goal.done = true;
+        await goal.save();
+      }
       return goal;
     } catch (error) {
       console.log("Something went wrong in the Goal Repo");
