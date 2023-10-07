@@ -96,4 +96,26 @@ const markAsDone = async (req: Request, res: Response) => {
   }
 };
 
-export { createGoal, getGoals, markAsDone };
+const deleteGoal = async (req: Request, res: Response) => {
+  try {
+    let response = await goalService.deleteGoal(req.params.id);
+    if (response) {
+      return res.status(200).json(
+        commanResponse({
+          message: "Successfully deleted a goal",
+          data: response,
+          success: true,
+        })
+      );
+    }
+  } catch (error) {
+    return res.status(500).json(
+      commanResponse({
+        message: "Something went wrong making goal done as true",
+        success: false,
+      })
+    );
+  }
+};
+
+export { createGoal, getGoals, markAsDone, deleteGoal };

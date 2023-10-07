@@ -11,6 +11,16 @@ export class GoalRepository {
     }
   }
 
+  async deleteGoal(goalId: string) {
+    try {
+      let goal = await Goal.findByIdAndDelete(goalId);
+      return goal;
+    } catch (error) {
+      console.log("Something went wrong in the Goal Repo");
+      throw error;
+    }
+  }
+
   async markAsDone(goalId: string) {
     try {
       let goal = await Goal.findById(goalId);

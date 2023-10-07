@@ -24,6 +24,18 @@ class GoalRepository {
             }
         });
     }
+    deleteGoal(goalId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let goal = yield goal_1.Goal.findByIdAndDelete(goalId);
+                return goal;
+            }
+            catch (error) {
+                console.log("Something went wrong in the Goal Repo");
+                throw error;
+            }
+        });
+    }
     markAsDone(goalId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

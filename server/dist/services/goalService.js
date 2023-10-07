@@ -62,5 +62,17 @@ class GoalService {
             }
         });
     }
+    deleteGoal(goalId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let goal = yield this.goalRepository.deleteGoal(goalId);
+                return goal;
+            }
+            catch (error) {
+                console.log("Something went wrong in the Goal Service");
+                throw error;
+            }
+        });
+    }
 }
 exports.GoalService = GoalService;

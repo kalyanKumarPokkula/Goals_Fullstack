@@ -10,4 +10,5 @@ const router = express_1.default.Router();
 router.get("/goal/:done", authenticateJwt_1.authenticateJWT, goalController_1.markAsDone);
 router.post("/goals", authenticateJwt_1.authenticateJWT, goalController_1.createGoal);
 router.get("/goals", authenticateJwt_1.authenticateJWT, goalController_1.getGoals);
+router.delete("/goal/:id", authenticateJwt_1.authenticateJWT, goalController_1.deleteGoal);
 exports.default = router;

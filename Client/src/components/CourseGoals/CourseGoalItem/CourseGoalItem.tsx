@@ -3,16 +3,35 @@ import { MdDeleteOutline } from "react-icons/md";
 import axios from "axios";
 import { goalState } from "../../../Store/GoalState";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useState } from "react";
 const CourseGoalItem = props => {
   const setGoal = useSetRecoilState(goalState);
   const goals = useRecoilValue(goalState);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [markLoading, setMarkLoading] = useState(false);
 
   function deleteHander() {
+    setDeleteLoading(true);
     const UpdatedGoals = goals.filter(goal => goal._id !== props.id);
 
-    setGoal(UpdatedGoals);
+    async function markDone() {
+      try {
+        await axios.delete(`http://localhost:3000/api/v1/goal/${props.id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        setGoal(UpdatedGoals);
+        setDeleteLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    markDone();
   }
   function markAsDoneHandler() {
+    setMarkLoading(true);
     const UpdatedGoals = goals.map(goal => {
       if (goal._id === props.id) {
         return { ...goal, done: true };
@@ -21,9 +40,6 @@ const CourseGoalItem = props => {
       return goal;
     });
 
-    console.log(UpdatedGoals);
-    setGoal(UpdatedGoals);
-
     async function markDone() {
       try {
         await axios.get(`http://localhost:3000/api/v1/goal/${props.id}`, {
@@ -31,6 +47,8 @@ const CourseGoalItem = props => {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
+        setGoal(UpdatedGoals);
+        setMarkLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -51,13 +69,21 @@ const CourseGoalItem = props => {
         <p>{props.children}</p>
 
         <div style={{ display: "flex", gap: "12px" }}>
-          <button onClick={markAsDoneHandler}>
-            {props.done ? "Done" : "Mark As Done"}
-          </button>
+          {!markLoading && (
+            <button onClick={markAsDoneHandler}>
+              {props.done ? "Done" : "Mark As Done"}
+            </button>
+          )}
 
-          <button onClick={deleteHander}>
-            <MdDeleteOutline size={16} />
-          </button>
+          {markLoading && <div className="loader"></div>}
+
+          {!deleteLoading && (
+            <button onClick={deleteHander}>
+              <MdDeleteOutline size={16} />
+            </button>
+          )}
+
+          {deleteLoading && <div className="loader"></div>}
         </div>
       </div>
     </li>

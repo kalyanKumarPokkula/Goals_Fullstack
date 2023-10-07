@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.markAsDone = exports.getGoals = exports.createGoal = void 0;
+exports.deleteGoal = exports.markAsDone = exports.getGoals = exports.createGoal = void 0;
 const goalService_1 = require("../services/goalService");
 const common_1 = require("../common/common");
 const zod_1 = require("zod");
@@ -88,3 +88,22 @@ const markAsDone = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.markAsDone = markAsDone;
+const deleteGoal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let response = yield goalService.deleteGoal(req.params.id);
+        if (response) {
+            return res.status(200).json((0, common_1.commanResponse)({
+                message: "Successfully deleted a goal",
+                data: response,
+                success: true,
+            }));
+        }
+    }
+    catch (error) {
+        return res.status(500).json((0, common_1.commanResponse)({
+            message: "Something went wrong making goal done as true",
+            success: false,
+        }));
+    }
+});
+exports.deleteGoal = deleteGoal;

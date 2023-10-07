@@ -49,4 +49,14 @@ export class GoalService {
       throw error;
     }
   }
+
+  async deleteGoal(goalId: string) {
+    try {
+      let goal = await this.goalRepository.deleteGoal(goalId);
+      return goal;
+    } catch (error) {
+      console.log("Something went wrong in the Goal Service");
+      throw error;
+    }
+  }
 }
