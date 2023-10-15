@@ -41,9 +41,27 @@ class GoalRepository {
             try {
                 let goal = yield goal_1.Goal.findById(goalId);
                 if (goal) {
-                    goal.done = true;
-                    yield goal.save();
+                    if (goal.done) {
+                        goal.done = false;
+                        yield goal.save();
+                    }
+                    else {
+                        goal.done = true;
+                        yield goal.save();
+                    }
+                    return goal;
                 }
+            }
+            catch (error) {
+                console.log("Something went wrong in the Goal Repo");
+                throw error;
+            }
+        });
+    }
+    getById(goalId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let goal = yield goal_1.Goal.findById(goalId);
                 return goal;
             }
             catch (error) {

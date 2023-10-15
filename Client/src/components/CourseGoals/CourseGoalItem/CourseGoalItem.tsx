@@ -9,45 +9,70 @@ const CourseGoalItem = props => {
   const goals = useRecoilValue(goalState);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [markLoading, setMarkLoading] = useState(false);
+  const [markAsDone, setMarkAsDone] = useState(props.done);
+  const [deleteGoal, setDeleteGoal] = useState(false);
+  const [deleteId, setDeleteId] = useState<number>();
 
   function deleteHander() {
-    setDeleteLoading(true);
-    const UpdatedGoals = goals.filter(goal => goal._id !== props.id);
+    // setDeleteLoading(true);
+    setDeleteGoal(true);
 
-    async function markDone() {
-      try {
-        await axios.delete(`http://localhost:3000/api/v1/goal/${props.id}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-        setGoal(UpdatedGoals);
-        setDeleteLoading(false);
-      } catch (error) {
-        console.log(error);
+    const id = setTimeout(() => {
+      const UpdatedGoals = goals.filter(goal => goal._id != props.id);
+      async function markDone() {
+        try {
+          await axios.delete(`http://localhost:3000/api/v1/goal/${props.id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+          setGoal(UpdatedGoals);
+          setDeleteLoading(false);
+        } catch (error) {
+          console.log(error);
+        }
       }
+      markDone();
+    }, 3000);
+
+    setDeleteId(id);
+  }
+
+  function updateMarkAsDone(done) {
+    if (done) {
+      setMarkAsDone(true);
+    } else {
+      setMarkAsDone(false);
     }
 
-    markDone();
-  }
-  function markAsDoneHandler() {
-    setMarkLoading(true);
     const UpdatedGoals = goals.map(goal => {
       if (goal._id === props.id) {
-        return { ...goal, done: true };
+        return { ...goal, done: done };
       }
 
       return goal;
     });
+    setGoal(UpdatedGoals);
+  }
+  function markAsDoneHandler() {
+    setMarkLoading(true);
 
     async function markDone() {
       try {
-        await axios.get(`http://localhost:3000/api/v1/goal/${props.id}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-        setGoal(UpdatedGoals);
+        let response = await axios.get(
+          `http://localhost:3000/api/v1/goal/${props.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        if (response.data.data.done) {
+          updateMarkAsDone(response.data.data.done);
+        } else {
+          updateMarkAsDone(response.data.data.done);
+        }
+
         setMarkLoading(false);
       } catch (error) {
         console.log(error);
@@ -59,33 +84,59 @@ const CourseGoalItem = props => {
 
   return (
     <li className="goal-item">
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <p>{props.children}</p>
-
-        <div style={{ display: "flex", gap: "12px" }}>
-          {!markLoading && (
-            <button onClick={markAsDoneHandler}>
-              {props.done ? "Done" : "Mark As Done"}
+      {deleteGoal && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <p>{props.children}</p>
+          <div>
+            <button
+              style={{
+                padding: "10.6px",
+              }}
+              onClick={() => {
+                clearTimeout(deleteId);
+                setDeleteGoal(false);
+              }}
+            >
+              Undo
             </button>
-          )}
-
-          {markLoading && <div className="loader"></div>}
-
-          {!deleteLoading && (
-            <button onClick={deleteHander}>
-              <MdDeleteOutline size={16} />
-            </button>
-          )}
-
-          {deleteLoading && <div className="loader"></div>}
+          </div>
         </div>
-      </div>
+      )}
+      {!deleteGoal && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <p>{props.children}</p>
+
+          <div style={{ display: "flex", gap: "12px" }}>
+            {!markLoading && (
+              <button onClick={markAsDoneHandler}>
+                {markAsDone ? "Done" : "Mark As Done"}
+              </button>
+            )}
+
+            {markLoading && <div className="loader"></div>}
+
+            {!deleteLoading && (
+              <button onClick={deleteHander}>
+                <MdDeleteOutline size={16} />
+              </button>
+            )}
+
+            {deleteLoading && <div className="loader"></div>}
+          </div>
+        </div>
+      )}
     </li>
   );
 };

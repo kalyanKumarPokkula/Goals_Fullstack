@@ -9,15 +9,18 @@ const db_1 = require("./configs/db");
 const routes_1 = __importDefault(require("./routes"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
+const path_1 = __importDefault(require("path"));
 const app = express();
 app.use((0, cors_1.default)());
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
-app.get("/hello", (req, res) => {
-    res.send("Hello World!");
-});
 app.use("/api", routes_1.default);
+app.use(express.static("public"));
+app.get("/*", (req, res) => {
+    res.sendFile(path_1.default.join(__dirname, "/public/index.html"));
+});
 app.listen(config_1.PORT, () => {
     (0, db_1.connect)();
     console.log(`⚡️[server]: Server is running at http://localhost:${config_1.PORT}`);
+    console.log(__dirname);
 });

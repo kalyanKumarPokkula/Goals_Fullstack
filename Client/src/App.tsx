@@ -18,6 +18,9 @@ const App = () => {
   useEffect(() => {
     const init = async () => {
       const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login");
+      }
       try {
         let response = await axios.get(`http://localhost:3000/api/auth/me`, {
           headers: {

@@ -25,9 +25,25 @@ export class GoalRepository {
     try {
       let goal = await Goal.findById(goalId);
       if (goal) {
-        goal.done = true;
-        await goal.save();
+        if (goal.done) {
+          goal.done = false;
+          await goal.save();
+        } else {
+          goal.done = true;
+          await goal.save();
+        }
+
+        return goal;
       }
+    } catch (error) {
+      console.log("Something went wrong in the Goal Repo");
+      throw error;
+    }
+  }
+
+  async getById(goalId: string) {
+    try {
+      let goal = await Goal.findById(goalId);
       return goal;
     } catch (error) {
       console.log("Something went wrong in the Goal Repo");
