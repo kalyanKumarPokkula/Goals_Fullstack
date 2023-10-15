@@ -19,7 +19,7 @@ const userSchema = new Schema<UserI>(
     },
     password: {
       type: String,
-      min: 4,
+      min: 3,
       required: true,
     },
   },

@@ -4,6 +4,7 @@ import Button from "../../UI/Button/Button";
 import "./CourseInput.css";
 import { goalState } from "../../../Store/GoalState";
 import { useSetRecoilState } from "recoil";
+import BASE_URL from "../../../config";
 
 const CourseInput = () => {
   const [enteredValue, setEnteredValue] = useState("");
@@ -28,15 +29,11 @@ const CourseInput = () => {
 
     async function addGoal() {
       try {
-        let response = await axios.post(
-          `http://localhost:3000/api/v1/goals`,
-          Payload,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        let response = await axios.post(`${BASE_URL}/api/v1/goals`, Payload, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
 
         console.log(response.data);
         setGoal(pre => [...pre, response.data.data]);

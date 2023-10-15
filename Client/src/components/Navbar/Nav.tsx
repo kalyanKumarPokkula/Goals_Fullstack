@@ -16,7 +16,7 @@ const Nav = () => {
       {user.username && (
         <div className="nav">
           <div>
-            <h3 onClick={() => navigator("/")}>Goals</h3>
+            <h3>Goals</h3>
           </div>
           <div
             style={{
@@ -46,7 +46,7 @@ const Nav = () => {
       {!user.username && (
         <div className="nav">
           <div>
-            <h3 onClick={() => navigator("/")}>Goals</h3>
+            <h3>Goals</h3>
           </div>
           <div>
             <button className="button" onClick={() => navigator("/login")}>

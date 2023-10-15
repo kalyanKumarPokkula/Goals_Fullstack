@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { authState } from "./Store/AuthState";
 
 import axios from "axios";
+import BASE_URL from "./config";
 
 const App = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const App = () => {
         navigate("/login");
       }
       try {
-        let response = await axios.get(`http://localhost:3000/api/auth/me`, {
+        let response = await axios.get(`${BASE_URL}/api/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

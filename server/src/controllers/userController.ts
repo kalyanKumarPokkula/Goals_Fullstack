@@ -8,12 +8,12 @@ const userService: UserService = new UserService();
 const signUpInput = z.object({
   name: z.string().min(1).max(20),
   email: z.string().email(),
-  password: z.string().min(6),
+  password: z.string().min(3),
 });
 
 const signInInput = z.object({
   email: z.string().email(),
-  password: z.string().min(7),
+  password: z.string().min(3),
 });
 
 const signUp = async (req: Request, res: Response) => {
@@ -70,13 +70,29 @@ const signIn = async (req: Request, res: Response) => {
     let password = payload.data.password;
 
     let response = await userService.signIn({ email, password });
-    return res.status(200).json(
-      commanResponse({
-        success: true,
-        message: "Successfully Logged In",
-        data: response,
-      })
-    );
+    if (response.status === 553) {
+      return res.status(200).json(
+        commanResponse({
+          success: false,
+          message: "Invalid Email",
+        })
+      );
+    } else if (response.status === 401) {
+      return res.status(200).json(
+        commanResponse({
+          success: false,
+          message: "Incorrect Password",
+        })
+      );
+    } else {
+      return res.status(200).json(
+        commanResponse({
+          success: true,
+          message: "Successfully Logged In",
+          data: response,
+        })
+      );
+    }
   } catch (error) {
     return res.status(500).json(
       commanResponse({

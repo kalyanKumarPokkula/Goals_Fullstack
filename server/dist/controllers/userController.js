@@ -17,11 +17,11 @@ const userService = new userService_1.UserService();
 const signUpInput = zod_1.z.object({
     name: zod_1.z.string().min(1).max(20),
     email: zod_1.z.string().email(),
-    password: zod_1.z.string().min(6),
+    password: zod_1.z.string().min(3),
 });
 const signInInput = zod_1.z.object({
     email: zod_1.z.string().email(),
-    password: zod_1.z.string().min(7),
+    password: zod_1.z.string().min(3),
 });
 const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -68,11 +68,25 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         let email = payload.data.email;
         let password = payload.data.password;
         let response = yield userService.signIn({ email, password });
-        return res.status(200).json((0, common_1.commanResponse)({
-            success: true,
-            message: "Successfully Logged In",
-            data: response,
-        }));
+        if (response.status === 553) {
+            return res.status(200).json((0, common_1.commanResponse)({
+                success: false,
+                message: "Invalid Email",
+            }));
+        }
+        else if (response.status === 401) {
+            return res.status(200).json((0, common_1.commanResponse)({
+                success: false,
+                message: "Incorrect Password",
+            }));
+        }
+        else {
+            return res.status(200).json((0, common_1.commanResponse)({
+                success: true,
+                message: "Successfully Logged In",
+                data: response,
+            }));
+        }
     }
     catch (error) {
         return res.status(500).json((0, common_1.commanResponse)({

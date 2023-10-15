@@ -4,6 +4,7 @@ import { goalState } from "../../../Store/GoalState";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useEffect } from "react";
 import axios from "axios";
+import BASE_URL from "../../../config";
 
 const CourseGoalList = () => {
   const goal = useRecoilValue(goalState);
@@ -12,7 +13,7 @@ const CourseGoalList = () => {
   useEffect(() => {
     async function getTodo() {
       try {
-        let response = await axios.get(`http://localhost:3000/api/v1/goals`, {
+        let response = await axios.get(`${BASE_URL}/api/v1/goals`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

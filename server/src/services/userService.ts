@@ -20,6 +20,7 @@ export class UserService {
         let response: AuthResponse = {
           username: user.name,
           token: token,
+          status: 201,
         };
 
         return response;
@@ -41,16 +42,17 @@ export class UserService {
           let response: AuthResponse = {
             username: user.name,
             token: token,
+            status: 200,
           };
 
           return response;
         } else {
           console.log("Incorrect Password");
 
-          throw { message: "incorrect Password" };
+          return { status: 401 };
         }
       } else {
-        throw { message: "incorrect email" };
+        return { status: 553 };
       }
     } catch (error) {
       console.log("Somethign went wrong in the User Service");

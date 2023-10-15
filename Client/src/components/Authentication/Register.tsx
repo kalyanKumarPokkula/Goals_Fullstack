@@ -5,6 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useSetRecoilState } from "recoil";
 import { authState } from "../../Store/AuthState";
+import BASE_URL from "../../config";
 interface SignUpI {
   name: string;
   email: string;
@@ -32,7 +33,7 @@ const Register = () => {
     async function signUp() {
       try {
         let response = await axios.post(
-          `http://localhost:3000/api/auth/signup`,
+          `${BASE_URL}/api/auth/signup`,
           SignUpPayload
         );
         console.log(response.data.data);

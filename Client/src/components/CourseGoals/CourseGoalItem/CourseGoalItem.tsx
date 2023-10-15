@@ -4,6 +4,7 @@ import axios from "axios";
 import { goalState } from "../../../Store/GoalState";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useState } from "react";
+import BASE_URL from "../../../config";
 const CourseGoalItem = props => {
   const setGoal = useSetRecoilState(goalState);
   const goals = useRecoilValue(goalState);
@@ -21,7 +22,7 @@ const CourseGoalItem = props => {
       const UpdatedGoals = goals.filter(goal => goal._id != props.id);
       async function markDone() {
         try {
-          await axios.delete(`http://localhost:3000/api/v1/goal/${props.id}`, {
+          await axios.delete(`${BASE_URL}/api/v1/goal/${props.id}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -59,14 +60,11 @@ const CourseGoalItem = props => {
 
     async function markDone() {
       try {
-        let response = await axios.get(
-          `http://localhost:3000/api/v1/goal/${props.id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        let response = await axios.get(`${BASE_URL}/api/v1/goal/${props.id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
         if (response.data.data.done) {
           updateMarkAsDone(response.data.data.done);
         } else {
