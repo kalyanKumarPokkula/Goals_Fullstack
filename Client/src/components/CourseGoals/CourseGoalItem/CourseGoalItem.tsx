@@ -12,7 +12,7 @@ const CourseGoalItem = props => {
   const [markLoading, setMarkLoading] = useState(false);
   const [markAsDone, setMarkAsDone] = useState(props.done);
   const [deleteGoal, setDeleteGoal] = useState(false);
-  const [deleteId, setDeleteId] = useState<number>();
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
   function deleteHander() {
     // setDeleteLoading(true);
@@ -36,7 +36,7 @@ const CourseGoalItem = props => {
       markDone();
     }, 3000);
 
-    setDeleteId(id);
+    setTimeoutId(id);
   }
 
   function updateMarkAsDone(done) {
@@ -97,7 +97,9 @@ const CourseGoalItem = props => {
                 padding: "10.6px",
               }}
               onClick={() => {
-                clearTimeout(deleteId);
+                if (timeoutId) {
+                  clearTimeout(timeoutId);
+                }
                 setDeleteGoal(false);
               }}
             >
