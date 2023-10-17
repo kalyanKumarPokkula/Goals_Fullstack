@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsc && nodemon dist/index.js",
-    "start": "cd ../Client && npm run build && cd ../server/dist && rm -rf public && mkdir public && cd ../../Client && mv ./dist/* ../server/dist/public && cd ../server/dist && node index.js "
+    "dev": "node index.js",
+    "start": "cd ../Client && npm run build && cd ../server && rm -rf public && mkdir public && cd ../Client && mv ./dist/* ../server/public && cd ../server && node index.js "
   },
   "keywords": [],
   "author": "",
