@@ -45,7 +45,7 @@ const Login = () => {
         if (response.data.success) {
           setAuth(response.data.data);
           localStorage.setItem("token", response.data.data.token);
-          navigator("/goal");
+          navigator("/");
         } else {
           setValidationError({ message: response.data.message });
         }

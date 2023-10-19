@@ -15,12 +15,11 @@ app.use((0, cors_1.default)());
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use("/api", routes_1.default);
-app.use(express.static(path_1.default.join(__dirname, "public")));
-app.get("/", (req, res) => {
-    res.sendFile(path_1.default.join(__dirname, "public/index.html"));
+app.use(express.static("public"));
+app.use("/*", (req, res) => {
+    res.sendFile(path_1.default.join(__dirname, "/public/index.html"));
 });
 app.listen(config_1.PORT, () => {
     (0, db_1.connect)();
     console.log(`⚡️[server]: Server is running at http://localhost:${config_1.PORT}`);
-    console.log(__dirname);
 });

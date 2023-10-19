@@ -1,0 +1,104 @@
+.landing-page {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3rem 7rem;
+  margin: 2rem 0rem;
+}
+
+.landing-page .title {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.landing-page .title h1 {
+  font-size: 4rem;
+  margin: 1rem 0rem;
+}
+
+.landing-page .title h3 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.landing-page .image {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.landing-page .image img {
+  width: 32rem;
+  object-fit: contain;
+}
+
+.landing-page .title button {
+  width: 100%;
+  font: inherit;
+  padding: 0.5rem 3rem;
+  margin-top: 1rem;
+  border: 1px solid #8b005d;
+  color: white;
+  background: #8b005d;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.26);
+  cursor: pointer;
+}
+
+.landing-page .title button:focus {
+  outline: none;
+}
+
+.landing-page .title button:hover,
+.landing-page .title button:active {
+  background: #ac0e77;
+  border-color: #ac0e77;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.26);
+}
+
+@media screen and (max-width: 1118px) {
+  .landing-page {
+    padding: 2rem 3rem;
+  }
+
+  .landing-page .image img {
+    width: 28rem;
+    object-fit: contain;
+  }
+  .landing-page .title h1 {
+    font-size: 3.5rem;
+    margin: 1rem 0rem;
+  }
+
+  .landing-page .title h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .landing-page {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .landing-page .image img {
+    width: 33rem;
+    object-fit: contain;
+  }
+  .landing-page .title h1 {
+    font-size: 3rem;
+    margin: 1rem 0rem;
+  }
+
+  .landing-page .title h3 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+}

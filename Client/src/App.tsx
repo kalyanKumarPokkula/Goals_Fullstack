@@ -11,6 +11,7 @@ import { authState } from "./Store/AuthState";
 
 import axios from "axios";
 import BASE_URL from "./config";
+import Landing from "./components/LandingPage/Landing";
 
 const App = () => {
   const navigate = useNavigate();
@@ -18,14 +19,10 @@ const App = () => {
 
   useEffect(() => {
     const init = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        navigate("/login");
-      }
       try {
         let response = await axios.get(`${BASE_URL}/api/auth/me`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
 
@@ -33,11 +30,11 @@ const App = () => {
         if (response.data.data.username) {
           let name = response.data.data.username;
           setAuth({ username: name });
-          navigate("/goal");
+          navigate("/");
         }
       } catch (error) {
         console.log(error);
-        navigate("/login");
+        navigate("/");
       }
     };
     init();
@@ -69,6 +66,8 @@ const App = () => {
             </section>
           }
         />
+        <Route path="/" element={<Landing />} />
+
         <Route
           path="/login"
           element={

@@ -15,14 +15,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api", API);
 
-app.use(express.static(path.join(__dirname, "public")));
-
-app.get("/", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "public/index.html"));
+app.use(express.static("public"));
+app.use("/*", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "/public/index.html"));
 });
 
 app.listen(PORT, () => {
   connect();
   console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
-  console.log(__dirname);
 });

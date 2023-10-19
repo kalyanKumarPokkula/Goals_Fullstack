@@ -34,7 +34,7 @@ const CourseGoalItem = props => {
         }
       }
       markDone();
-    }, 3000);
+    }, 2000);
 
     setTimeoutId(id);
   }

@@ -3,6 +3,7 @@ import "./Nav.css";
 import { useNavigate } from "react-router-dom";
 import { authState } from "../../Store/AuthState";
 import { goalState } from "../../Store/GoalState";
+import { GoGoal } from "react-icons/go";
 
 const Nav = () => {
   const navigator = useNavigate();
@@ -13,11 +14,11 @@ const Nav = () => {
 
   return (
     <>
-      {user.username && (
-        <div className="nav">
-          <div>
-            <h3>Goals</h3>
-          </div>
+      <div className="nav">
+        <div onClick={() => navigator("/")}>
+          <GoGoal size={28} />
+        </div>
+        {user.username && (
           <div
             style={{
               display: "flex",
@@ -26,35 +27,34 @@ const Nav = () => {
               gap: "12px",
             }}
           >
+            <div className="link-to-goals" onClick={() => navigator("/goal")}>
+              <h4>Goals</h4>
+            </div>
             <div>
               <h3>{user.username}</h3>
             </div>
+
             <button
               className="button"
               onClick={() => {
                 localStorage.setItem("token", "");
                 setAuth({ username: null });
                 setGoal([]);
-                navigator("/login");
+                navigator("/");
               }}
             >
               Log out
             </button>
           </div>
-        </div>
-      )}
-      {!user.username && (
-        <div className="nav">
-          <div>
-            <h3>Goals</h3>
-          </div>
+        )}
+        {!user.username && (
           <div>
             <button className="button" onClick={() => navigator("/login")}>
               Log In
             </button>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 };

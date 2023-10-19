@@ -39,7 +39,7 @@ const Register = () => {
         console.log(response.data.data);
         setAuth(response.data.data);
         localStorage.setItem("token", response.data.data.token);
-        navigator("/goal");
+        navigator("/");
       } catch (error) {
         console.log(error);
       }
