@@ -16,6 +16,7 @@ exports.UserService = void 0;
 const userRepository_1 = require("../repositorys/userRepository");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const mailer_1 = __importDefault(require("../utils/mailer"));
 class UserService {
     constructor() {
         this.userRepository = new userRepository_1.UserRepository();
@@ -33,6 +34,7 @@ class UserService {
                         token: token,
                         status: 201,
                     };
+                    yield (0, mailer_1.default)(user.email, "VERIFY", user._id);
                     return response;
                 }
                 return user;

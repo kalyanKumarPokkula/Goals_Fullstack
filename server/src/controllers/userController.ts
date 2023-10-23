@@ -2,6 +2,7 @@ import { UserService } from "../services/userService";
 import { z } from "zod";
 import { Request, Response } from "express";
 import { commanResponse } from "../common/common";
+import { User } from "../models/user";
 
 const userService: UserService = new UserService();
 
@@ -103,6 +104,39 @@ const signIn = async (req: Request, res: Response) => {
   }
 };
 
+const verifyEmail = async (req: Request, res: Response) => {
+  try {
+    let { token } = req.body;
+    console.log(req.body);
+
+    console.log(token);
+
+    let user = await User.findOne({
+      verifyToken: token,
+      verifyTokenExpiry: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.status(400).json({
+        message: "Invaild token",
+        success: false,
+      });
+    }
+
+    user.isVerfied = true;
+    user.verifyToken = "";
+    user.verifyTokenExpiry = undefined;
+    await user.save();
+
+    return res.status(200).json({
+      message: "Email verified successfully",
+      success: true,
+    });
+  } catch (error: any) {
+    return res.status(500).json({ errro: error.message });
+  }
+};
+
 const user = async (req: Request, res: Response) => {
   try {
     if (typeof req.headers.userId === "string") {
@@ -122,4 +156,4 @@ const user = async (req: Request, res: Response) => {
   }
 };
 
-export { signIn, signUp, user };
+export { signIn, signUp, user, verifyEmail };

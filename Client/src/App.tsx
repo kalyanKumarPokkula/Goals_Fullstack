@@ -8,10 +8,12 @@ import Login from "./components/Authentication/Login";
 import { useSetRecoilState } from "recoil";
 import { useEffect } from "react";
 import { authState } from "./Store/AuthState";
+import Verify from "./components/VerifyEmail/Verify";
 
 import axios from "axios";
 import BASE_URL from "./config";
 import Landing from "./components/LandingPage/Landing";
+import ReSendEmail from "./components/VerifyEmail/ReSendEmail";
 
 const App = () => {
   const navigate = useNavigate();
@@ -34,7 +36,6 @@ const App = () => {
         }
       } catch (error) {
         console.log(error);
-        navigate("/");
       }
     };
     init();
@@ -58,6 +59,9 @@ const App = () => {
             </div>
           }
         />
+        <Route path="/verifyemail" element={<Verify />} />
+        <Route path="/sendedemail" element={<ReSendEmail />} />
+
         <Route
           path="/register"
           element={

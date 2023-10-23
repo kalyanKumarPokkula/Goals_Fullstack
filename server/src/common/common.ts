@@ -29,3 +29,9 @@ interface Response {
 export function commanResponse(data: Response) {
   return data;
 }
+
+export interface EmailType {
+  email: string;
+  emailType: string;
+  userId: string;
+}

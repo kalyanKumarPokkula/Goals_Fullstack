@@ -17,6 +17,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const setAuth = useSetRecoilState(authState);
+  const [processing, setProcessing] = useState(false);
   const navigator = useNavigate();
   // const [isValid, setIsValid] = useState(false);
 
@@ -31,15 +32,16 @@ const Register = () => {
     console.log(SignUpPayload);
 
     async function signUp() {
+      setProcessing(true);
       try {
         let response = await axios.post(
           `${BASE_URL}/api/auth/signup`,
           SignUpPayload
         );
         console.log(response.data.data);
-        setAuth(response.data.data);
-        localStorage.setItem("token", response.data.data.token);
-        navigator("/");
+        navigator("/sendedemail");
+        // setAuth(response.data.data);
+        // localStorage.setItem("token", response.data.data.token);
       } catch (error) {
         console.log(error);
       }
@@ -54,7 +56,7 @@ const Register = () => {
   return (
     <form onSubmit={submitHandler}>
       <div className="title">
-        <label>Register</label>
+        <label>{processing ? "Processing" : "Register"}</label>
       </div>
       <div className={`field`}>
         <label>Name</label>
@@ -83,7 +85,7 @@ const Register = () => {
           required
         />
       </div>
-      <Button type="submit">Sign Up</Button>
+      <Button type="submit">{processing ? "Processing" : "Sign up"}</Button>
       <div className="bottom">
         <p>Already a user? </p>
         <NavLink to="/login">Login</NavLink>

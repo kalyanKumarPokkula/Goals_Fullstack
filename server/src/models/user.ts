@@ -4,6 +4,11 @@ export interface UserI extends Document {
   name: string;
   email: string;
   password: string;
+  isVerfied?: boolean;
+  forgotPasswordToken?: string;
+  forgotPasswordTokenExpiry?: Date;
+  verifyToken?: string;
+  verifyTokenExpiry?: Date;
 }
 
 const userSchema = new Schema<UserI>(
@@ -21,6 +26,27 @@ const userSchema = new Schema<UserI>(
       type: String,
       min: 3,
       required: true,
+    },
+
+    isVerfied: {
+      type: Boolean,
+      default: false,
+    },
+    forgotPasswordToken: {
+      type: String,
+      default: "",
+    },
+    forgotPasswordTokenExpiry: {
+      type: Date,
+      default: undefined,
+    },
+    verifyToken: {
+      type: String,
+      default: "",
+    },
+    verifyTokenExpiry: {
+      type: Date,
+      default: undefined,
     },
   },
   { timestamps: true }

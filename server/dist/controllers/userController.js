@@ -9,10 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.user = exports.signUp = exports.signIn = void 0;
+exports.verifyEmail = exports.user = exports.signUp = exports.signIn = void 0;
 const userService_1 = require("../services/userService");
 const zod_1 = require("zod");
 const common_1 = require("../common/common");
+const user_1 = require("../models/user");
 const userService = new userService_1.UserService();
 const signUpInput = zod_1.z.object({
     name: zod_1.z.string().min(1).max(20),
@@ -96,6 +97,35 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.signIn = signIn;
+const verifyEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let { token } = req.body;
+        console.log(req.body);
+        console.log(token);
+        let user = yield user_1.User.findOne({
+            verifyToken: token,
+            verifyTokenExpiry: { $gt: Date.now() },
+        });
+        if (!user) {
+            return res.status(400).json({
+                message: "Invaild token",
+                success: false,
+            });
+        }
+        user.isVerfied = true;
+        user.verifyToken = "";
+        user.verifyTokenExpiry = undefined;
+        yield user.save();
+        return res.status(200).json({
+            message: "Email verified successfully",
+            success: true,
+        });
+    }
+    catch (error) {
+        return res.status(500).json({ errro: error.message });
+    }
+});
+exports.verifyEmail = verifyEmail;
 const user = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         if (typeof req.headers.userId === "string") {

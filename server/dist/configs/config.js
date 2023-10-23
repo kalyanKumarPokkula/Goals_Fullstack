@@ -23,10 +23,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DBURL = exports.PORT = void 0;
+exports.DOMAIN = exports.EMAIL_PASS = exports.EMAIL_ID = exports.DBURL = exports.PORT = void 0;
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const PORT = process.env.PORT;
 exports.PORT = PORT;
 const DBURL = process.env.DBURL;
 exports.DBURL = DBURL;
+const EMAIL_ID = process.env.EMAIL_ID;
+exports.EMAIL_ID = EMAIL_ID;
+const EMAIL_PASS = process.env.EMAIL_PASS;
+exports.EMAIL_PASS = EMAIL_PASS;
+const DOMAIN = process.env.DOMAIN;
+exports.DOMAIN = DOMAIN;

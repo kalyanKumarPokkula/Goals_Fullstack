@@ -3,6 +3,7 @@ import { UserI } from "../models/user";
 import { LoginI, PayloadToJwt, AuthResponse } from "../common/common";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import sendEmail from "../utils/mailer";
 
 export class UserService {
   userRepository: UserRepository;
@@ -22,6 +23,8 @@ export class UserService {
           token: token,
           status: 201,
         };
+
+        await sendEmail(user.email, "VERIFY", user._id);
 
         return response;
       }

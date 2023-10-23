@@ -10,4 +10,5 @@ const router = express_1.default.Router();
 router.post("/signup", userController_1.signUp);
 router.post("/signin", userController_1.signIn);
 router.get("/me", authenticateJwt_1.authenticateJWT, userController_1.user);
+router.post("/verifyemail", userController_1.verifyEmail);
 exports.default = router;
