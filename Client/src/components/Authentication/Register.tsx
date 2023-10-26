@@ -39,7 +39,7 @@ const Register = () => {
           SignUpPayload
         );
         console.log(response.data.data);
-        navigator("/sendedemail");
+        navigator("/send-verification-email");
         // setAuth(response.data.data);
         // localStorage.setItem("token", response.data.data.token);
       } catch (error) {

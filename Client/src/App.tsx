@@ -14,6 +14,7 @@ import axios from "axios";
 import BASE_URL from "./config";
 import Landing from "./components/LandingPage/Landing";
 import ReSendEmail from "./components/VerifyEmail/ReSendEmail";
+import ForgotPassword from "./components/Authentication/ForgotPassword";
 
 const App = () => {
   const navigate = useNavigate();
@@ -59,14 +60,22 @@ const App = () => {
             </div>
           }
         />
-        <Route path="/verifyemail" element={<Verify />} />
-        <Route path="/sendedemail" element={<ReSendEmail />} />
+        <Route path="/verify-email/:token" element={<Verify />} />
+        <Route path="/send-verification-email" element={<ReSendEmail />} />
 
         <Route
           path="/register"
           element={
             <section className="form_layout">
               <Register />
+            </section>
+          }
+        />
+        <Route
+          path="/forgot-password"
+          element={
+            <section className="form_layout">
+              <ForgotPassword />
             </section>
           }
         />

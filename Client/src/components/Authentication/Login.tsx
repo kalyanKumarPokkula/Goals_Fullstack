@@ -105,9 +105,24 @@ const Login = () => {
         />
       </div>
       <Button type="submit">Sign In</Button>
-      <div className="bottom">
-        <p>New here?</p>
-        <NavLink to="/register">Register</NavLink>
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "1.5rem",
+          marginBottom: "0.5rem",
+        }}
+      >
+        <NavLink to="/forgot-password">Forgot password</NavLink>
+        <div
+          style={{
+            display: "flex",
+          }}
+        >
+          <p>New here?</p>
+          <NavLink to="/register">Register</NavLink>
+        </div>
       </div>
     </form>
   );
