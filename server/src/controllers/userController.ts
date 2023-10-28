@@ -85,6 +85,13 @@ const signIn = async (req: Request, res: Response) => {
           message: "Incorrect Password",
         })
       );
+    } else if (response.isVerified === false) {
+      return res.status(200).json(
+        commanResponse({
+          success: false,
+          message: "Not verified",
+        })
+      );
     } else {
       return res.status(200).json(
         commanResponse({
@@ -106,8 +113,8 @@ const signIn = async (req: Request, res: Response) => {
 
 const verifyEmail = async (req: Request, res: Response) => {
   try {
-    let { token } = req.body;
-    console.log(req.body);
+    let { token } = req.query;
+    console.log(req.query);
 
     console.log(token);
 
@@ -123,7 +130,7 @@ const verifyEmail = async (req: Request, res: Response) => {
       });
     }
 
-    user.isVerfied = true;
+    user.isVerified = true;
     user.verifyToken = "";
     user.verifyTokenExpiry = undefined;
     await user.save();

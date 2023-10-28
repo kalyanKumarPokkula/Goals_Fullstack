@@ -81,6 +81,12 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 message: "Incorrect Password",
             }));
         }
+        else if (response.isVerified === false) {
+            return res.status(200).json((0, common_1.commanResponse)({
+                success: false,
+                message: "Not verified",
+            }));
+        }
         else {
             return res.status(200).json((0, common_1.commanResponse)({
                 success: true,
@@ -99,8 +105,8 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.signIn = signIn;
 const verifyEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let { token } = req.body;
-        console.log(req.body);
+        let { token } = req.query;
+        console.log(req.query);
         console.log(token);
         let user = yield user_1.User.findOne({
             verifyToken: token,
@@ -112,7 +118,7 @@ const verifyEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 success: false,
             });
         }
-        user.isVerfied = true;
+        user.isVerified = true;
         user.verifyToken = "";
         user.verifyTokenExpiry = undefined;
         yield user.save();

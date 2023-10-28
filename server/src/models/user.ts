@@ -4,7 +4,7 @@ export interface UserI extends Document {
   name: string;
   email: string;
   password: string;
-  isVerfied?: boolean;
+  isVerified?: boolean;
   forgotPasswordToken?: string;
   forgotPasswordTokenExpiry?: Date;
   verifyToken?: string;
@@ -28,7 +28,7 @@ const userSchema = new Schema<UserI>(
       required: true,
     },
 
-    isVerfied: {
+    isVerified: {
       type: Boolean,
       default: false,
     },

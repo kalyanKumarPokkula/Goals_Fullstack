@@ -1,6 +1,8 @@
 import "./ReSendEmail.css";
+import { useNavigate } from "react-router-dom";
 
 const ReSendEmail = () => {
+  const navigator = useNavigate();
   const reSendEmail = () => {};
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
@@ -20,9 +22,18 @@ const ReSendEmail = () => {
           if you have not received the mail click on re-send
         </h3>
 
-        <button className="btn" onClick={reSendEmail}>
-          Re-send Email
-        </button>
+        <h3 style={{ margin: "18px 0px" }}>
+          if your are verified click on login
+        </h3>
+
+        <div style={{ display: "flex", gap: "12px" }}>
+          <button className="btn" onClick={reSendEmail}>
+            Re-send Email
+          </button>
+          <button className="btn" onClick={() => navigator("/login")}>
+            Log in
+          </button>
+        </div>
       </div>
     </div>
   );

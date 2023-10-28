@@ -29,7 +29,7 @@ const sendEmail = async (email: string, emailType: string, userId: string) => {
       to: email,
       subject:
         emailType === "VERIFY" ? "Verify your email" : "Reset your password",
-      html: `<P>Click <a href="${DOMAIN}/verifyemail?token=${hashedToken}">here</a> to ${
+      html: `<P>Click <a href="${DOMAIN}/api/auth/verifyemail?token=${hashedToken}">here</a> to ${
         emailType === "VERIFY" ? "Verify your email" : "Reset your password"
       }</P>`,
     };

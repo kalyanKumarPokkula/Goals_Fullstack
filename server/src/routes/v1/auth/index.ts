@@ -12,6 +12,8 @@ const router = express.Router();
 router.post("/signup", signUp);
 router.post("/signin", signIn);
 router.get("/me", authenticateJWT, user);
-router.post("/verifyemail", verifyEmail);
+console.log("inside the auth route");
+
+router.get("/verifyemail", verifyEmail);
 
 export default router;

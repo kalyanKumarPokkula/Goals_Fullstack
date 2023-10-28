@@ -4,9 +4,10 @@ export interface LoginI {
 }
 
 export interface AuthResponse {
-  username: string;
-  token: string;
-  status: number;
+  username?: string;
+  token?: string;
+  status?: number;
+  isVerified?: boolean;
 }
 
 export interface PayloadToJwt {

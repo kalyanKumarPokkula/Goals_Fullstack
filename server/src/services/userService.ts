@@ -17,11 +17,12 @@ export class UserService {
       data.password = hashPass;
       let user = await this.userRepository.signUp(data);
       if (user) {
-        let token = this.generateJwt({ userId: user._id, email: user.email });
+        // let token = this.generateJwt({ userId: user._id, email: user.email });
         let response: AuthResponse = {
           username: user.name,
-          token: token,
+          // token: token,
           status: 201,
+          // isVerfied: user.isVerfied!,
         };
 
         await sendEmail(user.email, "VERIFY", user._id);
@@ -38,6 +39,13 @@ export class UserService {
   async signIn(data: LoginI) {
     try {
       let user = await this.userRepository.findByEmail(data.email);
+
+      if (!user?.isVerified) {
+        let response: AuthResponse = {
+          isVerified: user?.isVerified,
+        };
+        return response;
+      }
 
       if (user) {
         if (this.comparePassword(data.password, user.password)) {

@@ -42,6 +42,13 @@ const Login = () => {
         );
         console.log(response.data);
 
+        if (
+          !response.data.success &&
+          response.data.message === "Not verified"
+        ) {
+          navigator("/send-verification-email");
+        }
+
         if (response.data.success) {
           setAuth(response.data.data);
           localStorage.setItem("token", response.data.data.token);

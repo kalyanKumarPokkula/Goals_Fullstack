@@ -3,8 +3,6 @@ import Button from "../UI/Button/Button";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import { useSetRecoilState } from "recoil";
-import { authState } from "../../Store/AuthState";
 import BASE_URL from "../../config";
 interface SignUpI {
   name: string;
@@ -16,10 +14,8 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const setAuth = useSetRecoilState(authState);
   const [processing, setProcessing] = useState(false);
   const navigator = useNavigate();
-  // const [isValid, setIsValid] = useState(false);
 
   const submitHandler = event => {
     event.preventDefault();
@@ -40,8 +36,6 @@ const Register = () => {
         );
         console.log(response.data.data);
         navigator("/send-verification-email");
-        // setAuth(response.data.data);
-        // localStorage.setItem("token", response.data.data.token);
       } catch (error) {
         console.log(error);
       }

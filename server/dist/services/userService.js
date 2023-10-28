@@ -28,11 +28,12 @@ class UserService {
                 data.password = hashPass;
                 let user = yield this.userRepository.signUp(data);
                 if (user) {
-                    let token = this.generateJwt({ userId: user._id, email: user.email });
+                    // let token = this.generateJwt({ userId: user._id, email: user.email });
                     let response = {
                         username: user.name,
-                        token: token,
+                        // token: token,
                         status: 201,
+                        // isVerfied: user.isVerfied!,
                     };
                     yield (0, mailer_1.default)(user.email, "VERIFY", user._id);
                     return response;
@@ -49,6 +50,12 @@ class UserService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let user = yield this.userRepository.findByEmail(data.email);
+                if (!(user === null || user === void 0 ? void 0 : user.isVerified)) {
+                    let response = {
+                        isVerified: user === null || user === void 0 ? void 0 : user.isVerified,
+                    };
+                    return response;
+                }
                 if (user) {
                     if (this.comparePassword(data.password, user.password)) {
                         let token = this.generateJwt({ userId: user._id, email: user.email });
