@@ -8,6 +8,8 @@ import Login from "./components/Authentication/Login";
 import { useSetRecoilState } from "recoil";
 import { useEffect } from "react";
 import { authState } from "./Store/AuthState";
+import NewPassword from "./components/Authentication/NewPassword";
+
 // import Verify from "./components/VerifyEmail/Verify";
 
 import axios from "axios";
@@ -60,7 +62,14 @@ const App = () => {
             </div>
           }
         />
-        {/* <Route path="/verify-email/:token" element={<Verify />} /> */}
+        <Route
+          path="/reset-password"
+          element={
+            <section className="form_layout">
+              <NewPassword />
+            </section>
+          }
+        />
         <Route path="/send-verification-email" element={<ReSendEmail />} />
 
         <Route
