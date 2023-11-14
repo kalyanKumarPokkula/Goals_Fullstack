@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyEmail = exports.user = exports.signUp = exports.signIn = void 0;
+exports.resetPassword = exports.forgottenPassword = exports.verifyEmail = exports.user = exports.signUp = exports.signIn = void 0;
 const userService_1 = require("../services/userService");
 const zod_1 = require("zod");
 const common_1 = require("../common/common");
@@ -38,7 +38,7 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         let user = yield userService.findByEmail(email);
         if (user) {
             return res
-                .status(403)
+                .status(200)
                 .json((0, common_1.commanResponse)({ success: false, message: "User already exists" }));
         }
         else {
@@ -103,6 +103,56 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.signIn = signIn;
+const forgottenPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let { email } = req.body;
+        let response = yield userService.forgottenPassword(email);
+        if (response) {
+            return res.status(200).json((0, common_1.commanResponse)({
+                success: true,
+                message: "Reset token sent to the email",
+            }));
+        }
+        else {
+            return res.json({
+                success: false,
+                message: "User not found",
+            });
+        }
+    }
+    catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+});
+exports.forgottenPassword = forgottenPassword;
+const resetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let { token, newPassword } = req.body;
+        let user = yield user_1.User.findOne({
+            forgotPasswordToken: token,
+            forgotPasswordTokenExpiry: { $gt: Date.now() },
+        });
+        if (!user) {
+            return res.status(400).json({
+                message: "Invaild token",
+                success: false,
+            });
+        }
+        user.forgotPasswordToken = "";
+        user.forgotPasswordTokenExpiry = undefined;
+        user.password = userService.hashPassword(newPassword);
+        yield user.save();
+        return res.status(200).json({
+            message: "Reset password successfully",
+            success: true,
+        });
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({ err: error.message });
+    }
+});
+exports.resetPassword = resetPassword;
 const verifyEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let { token } = req.query;
@@ -128,7 +178,7 @@ const verifyEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         });
     }
     catch (error) {
-        return res.status(500).json({ errro: error.message });
+        return res.status(500).json({ err: error.message });
     }
 });
 exports.verifyEmail = verifyEmail;

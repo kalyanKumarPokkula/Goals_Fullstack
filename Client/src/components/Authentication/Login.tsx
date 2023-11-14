@@ -6,6 +6,7 @@ import axios, { AxiosError } from "axios";
 import { authState } from "../../Store/AuthState";
 import { useSetRecoilState } from "recoil";
 import BASE_URL from "../../config";
+import toast, { Toaster } from "react-hot-toast";
 
 interface SignInI {
   email: String;
@@ -46,13 +47,23 @@ const Login = () => {
           !response.data.success &&
           response.data.message === "Not verified"
         ) {
-          navigator("/send-verification-email");
+          let notity = () => toast.error("Not verified Please verify");
+          notity();
+
+          setTimeout(() => {
+            navigator("/send-verification-email");
+          }, 1000);
         }
 
         if (response.data.success) {
+          let notity = () => toast.success("Successfully logged in");
+          notity();
           setAuth(response.data.data);
           localStorage.setItem("token", response.data.data.token);
-          navigator("/");
+
+          setTimeout(() => {
+            navigator("/");
+          }, 500);
         } else {
           setValidationError({ message: response.data.message });
         }
@@ -70,6 +81,7 @@ const Login = () => {
 
   return (
     <form onSubmit={submitHandler}>
+      <Toaster />
       <div className="title">
         <label>Log in</label>
       </div>

@@ -138,5 +138,21 @@ class UserService {
             }
         });
     }
+    forgottenPassword(email) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let user = yield this.userRepository.findByEmail(email);
+                if (!user) {
+                    return false;
+                }
+                yield (0, mailer_1.default)(user.email, "RESET", user._id);
+                return true;
+            }
+            catch (error) {
+                console.log("Something went wrong in fetching user");
+                throw error;
+            }
+        });
+    }
 }
 exports.UserService = UserService;

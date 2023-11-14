@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import BASE_URL from "../../config";
+import toast, { Toaster } from "react-hot-toast";
 interface SignUpI {
   name: string;
   email: string;
@@ -35,20 +36,36 @@ const Register = () => {
           SignUpPayload
         );
         console.log(response.data.data);
-        navigator("/send-verification-email");
+        if (response.data.success) {
+          let notity = () => toast.success(response.data.message);
+          notity();
+
+          setEmail("");
+          setName("");
+
+          setTimeout(() => {
+            navigator("/send-verification-email");
+          }, 2000);
+        } else {
+          let notity = () => toast.error(response.data.message);
+          notity();
+
+          setEmail("");
+          setName("");
+          setProcessing(false);
+        }
       } catch (error) {
         console.log(error);
       }
     }
 
     signUp();
-    setEmail("");
-    setName("");
     setPassword("");
   };
 
   return (
     <form onSubmit={submitHandler}>
+      <Toaster />
       <div className="title">
         <label>{processing ? "Processing" : "Register"}</label>
       </div>

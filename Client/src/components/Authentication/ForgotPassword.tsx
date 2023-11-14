@@ -2,13 +2,58 @@ import { useState } from "react";
 import "./Register.css";
 import Button from "../UI/Button/Button";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
+import BASE_URL from "../../config";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  function submitHandler(event) {
+    event.preventDefault();
+
+    if (email.trim() == null) {
+      return "Please enter the value";
+    }
+
+    let payload = {
+      email: email.trim(),
+    };
+
+    console.log(payload);
+
+    async function init() {
+      setLoading(true);
+      try {
+        let response = await axios.post(
+          `${BASE_URL}/api/auth/forgotten-password`,
+          payload
+        );
+
+        if (response.data.success) {
+          const notify = () => toast.success("Reset token sent to the email!");
+          notify();
+          setLoading(false);
+        } else {
+          const notify = () => toast.error("User not found!");
+          notify();
+          setLoading(false);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    init();
+    setEmail("");
+  }
+
   return (
-    <form>
+    <form onSubmit={submitHandler}>
+      <Toaster />
       <div className="title">
-        <label>Trouble logging in?</label>
+        <label>{loading ? "Processing" : "Trouble logging in?"}</label>
       </div>
       <p
         style={{
@@ -30,8 +75,9 @@ const ForgotPassword = () => {
           required
         />
       </div>
-      <Button type="submit">Send login link</Button>
-
+      <Button type="submit">
+        {loading ? "Processing" : "Send login link"}
+      </Button>
       <div
         className="bottom"
         style={{

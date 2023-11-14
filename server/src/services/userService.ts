@@ -4,6 +4,7 @@ import { LoginI, PayloadToJwt, AuthResponse } from "../common/common";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import sendEmail from "../utils/mailer";
+import { user } from "../controllers/userController";
 
 export class UserService {
   userRepository: UserRepository;
@@ -120,6 +121,23 @@ export class UserService {
       }
     } catch (error) {
       console.log("Something went wrong while hashing the password");
+      throw error;
+    }
+  }
+
+  async forgottenPassword(email: string) {
+    try {
+      let user = await this.userRepository.findByEmail(email);
+
+      if (!user) {
+        return false;
+      }
+
+      await sendEmail(user.email, "RESET", user._id);
+
+      return true;
+    } catch (error) {
+      console.log("Something went wrong in fetching user");
       throw error;
     }
   }

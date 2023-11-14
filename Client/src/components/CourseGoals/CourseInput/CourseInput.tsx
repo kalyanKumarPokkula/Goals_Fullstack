@@ -5,6 +5,7 @@ import "./CourseInput.css";
 import { goalState } from "../../../Store/GoalState";
 import { useSetRecoilState } from "recoil";
 import BASE_URL from "../../../config";
+import toast, { Toaster } from "react-hot-toast";
 
 const CourseInput = () => {
   const [enteredValue, setEnteredValue] = useState("");
@@ -36,6 +37,9 @@ const CourseInput = () => {
         });
 
         console.log(response.data);
+        const notify = () => toast.success(response.data.message);
+        notify();
+
         setGoal(pre => [...pre, response.data.data]);
       } catch (error) {
         console.log(error);
@@ -47,6 +51,7 @@ const CourseInput = () => {
 
   return (
     <form onSubmit={formSubmitHandler}>
+      <Toaster />
       <div className={`form-control ${!isValid ? "isValid" : ""}`}>
         <label>Goal</label>
         <input

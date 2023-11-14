@@ -34,7 +34,7 @@ const signUp = async (req: Request, res: Response) => {
     let user = await userService.findByEmail(email);
     if (user) {
       return res
-        .status(403)
+        .status(200)
         .json(
           commanResponse({ success: false, message: "User already exists" })
         );
@@ -111,6 +111,62 @@ const signIn = async (req: Request, res: Response) => {
   }
 };
 
+const forgottenPassword = async (req: Request, res: Response) => {
+  try {
+    let { email } = req.body;
+
+    let response = await userService.forgottenPassword(email);
+
+    if (response) {
+      return res.status(200).json(
+        commanResponse({
+          success: true,
+          message: "Reset token sent to the email",
+        })
+      );
+    } else {
+      return res.json({
+        success: false,
+        message: "User not found",
+      });
+    }
+  } catch (error: any) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+const resetPassword = async (req: Request, res: Response) => {
+  try {
+    let { token, newPassword } = req.body;
+
+    let user = await User.findOne({
+      forgotPasswordToken: token,
+      forgotPasswordTokenExpiry: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.status(400).json({
+        message: "Invaild token",
+        success: false,
+      });
+    }
+
+    user.forgotPasswordToken = "";
+    user.forgotPasswordTokenExpiry = undefined;
+    user.password = userService.hashPassword(newPassword);
+    await user.save();
+
+    return res.status(200).json({
+      message: "Reset password successfully",
+      success: true,
+    });
+  } catch (error: any) {
+    console.log(error);
+
+    return res.status(500).json({ err: error.message });
+  }
+};
+
 const verifyEmail = async (req: Request, res: Response) => {
   try {
     let { token } = req.query;
@@ -140,7 +196,7 @@ const verifyEmail = async (req: Request, res: Response) => {
       success: true,
     });
   } catch (error: any) {
-    return res.status(500).json({ errro: error.message });
+    return res.status(500).json({ err: error.message });
   }
 };
 
@@ -163,4 +219,4 @@ const user = async (req: Request, res: Response) => {
   }
 };
 
-export { signIn, signUp, user, verifyEmail };
+export { signIn, signUp, user, verifyEmail, forgottenPassword, resetPassword };
