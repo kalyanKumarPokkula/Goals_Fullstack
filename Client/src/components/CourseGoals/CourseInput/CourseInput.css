@@ -20,7 +20,29 @@
   background-color: transparent;
 }
 
+.form-control select {
+  display: block;
+  width: 100%;
+  border: 1px solid #ccc;
+  font: inherit;
+  line-height: 1.5rem;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  background-color: transparent;
+}
+
+option {
+  padding: 12px;
+}
+
 .form-control input:focus {
+  outline: none;
+  background: #fad0ec;
+  border-color: #8b005d;
+}
+
+form-control select:focus {
   outline: none;
   background: #fad0ec;
   border-color: #8b005d;

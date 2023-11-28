@@ -17,6 +17,15 @@
   cursor: pointer;
 }
 
+.goal-item .priority {
+  padding: 4px 8px;
+  background-color: #fad0ec;
+  display: inline-block;
+  color: black;
+  font-size: 10px;
+  margin-bottom: 10px;
+}
+
 .goal-item .loader {
   border: 4px solid #fad0ec;
   border-top: 4px solid transparent;

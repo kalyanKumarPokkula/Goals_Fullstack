@@ -7,6 +7,7 @@ const goalService: GoalService = new GoalService();
 
 const GoalInput = z.object({
   goal: z.string().min(2),
+  priority: z.string(),
 });
 
 const createGoal = async (req: Request, res: Response) => {
@@ -24,9 +25,12 @@ const createGoal = async (req: Request, res: Response) => {
 
     let userId = req.headers.userId;
 
+    console.log(payload);
+
     if (typeof userId === "string") {
       let response = await goalService.createGoal({
         goal: payload.data.goal,
+        priority: payload.data.priority,
         userId: userId,
       });
       return res.status(201).json(

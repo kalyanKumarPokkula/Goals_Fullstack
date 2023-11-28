@@ -4,6 +4,7 @@ export interface GoalI {
   goal: string;
   userId: Schema.Types.ObjectId;
   done?: boolean;
+  priority?: boolean;
 }
 
 const goalSchema = new Schema<GoalI>(
@@ -12,6 +13,10 @@ const goalSchema = new Schema<GoalI>(
       type: String,
       required: true,
       min: 5,
+    },
+    priority: {
+      type: String,
+      required: true,
     },
 
     userId: {

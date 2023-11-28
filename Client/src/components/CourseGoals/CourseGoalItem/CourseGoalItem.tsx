@@ -13,6 +13,7 @@ const CourseGoalItem = props => {
   const [markAsDone, setMarkAsDone] = useState(props.done);
   const [deleteGoal, setDeleteGoal] = useState(false);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+  console.log(props.priority + "inside");
 
   function deleteHander() {
     // setDeleteLoading(true);
@@ -34,7 +35,7 @@ const CourseGoalItem = props => {
         }
       }
       markDone();
-    }, 2000);
+    }, 1000);
 
     setTimeoutId(id);
   }
@@ -90,7 +91,10 @@ const CourseGoalItem = props => {
             alignItems: "center",
           }}
         >
-          <p>{props.children}</p>
+          <div>
+            <p className="priority">{props.priority}</p>
+            <p>{props.children}</p>
+          </div>
           <div>
             <button
               style={{
@@ -116,7 +120,10 @@ const CourseGoalItem = props => {
             alignItems: "center",
           }}
         >
-          <p>{props.children}</p>
+          <div>
+            <p className="priority">{props.priority}</p>
+            <p>{props.children}</p>
+          </div>
 
           <div style={{ display: "flex", gap: "12px" }}>
             {!markLoading && (

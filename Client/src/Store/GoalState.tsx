@@ -4,6 +4,7 @@ type GoalI = {
   userId: string;
   goal: string;
   done: boolean;
+  priority: string;
 };
 
 let goals: GoalI[] = [];

@@ -16,6 +16,7 @@ const zod_1 = require("zod");
 const goalService = new goalService_1.GoalService();
 const GoalInput = zod_1.z.object({
     goal: zod_1.z.string().min(2),
+    priority: zod_1.z.string(),
 });
 const createGoal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -28,9 +29,11 @@ const createGoal = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             }));
         }
         let userId = req.headers.userId;
+        console.log(payload);
         if (typeof userId === "string") {
             let response = yield goalService.createGoal({
                 goal: payload.data.goal,
+                priority: payload.data.priority,
                 userId: userId,
             });
             return res.status(201).json((0, common_1.commanResponse)({

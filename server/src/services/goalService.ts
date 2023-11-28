@@ -10,12 +10,13 @@ export class GoalService {
     this.userRepository = new UserRepository();
   }
 
-  async createGoal(GoalData: GoalPayload) {
+  async createGoal(GoalData: any) {
     try {
       let user = await this.userRepository.findById(GoalData.userId);
       if (user) {
         let goal = await this.goalRepository.createGoal({
           goal: GoalData.goal,
+          priority: GoalData.priority,
           userId: user._id,
         });
 

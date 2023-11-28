@@ -24,6 +24,7 @@ class GoalService {
                 if (user) {
                     let goal = yield this.goalRepository.createGoal({
                         goal: GoalData.goal,
+                        priority: GoalData.priority,
                         userId: user._id,
                     });
                     return goal;

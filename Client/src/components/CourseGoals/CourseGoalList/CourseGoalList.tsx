@@ -50,6 +50,7 @@ const CourseGoalList = () => {
               id={goal._id}
               userId={goal.userId}
               done={goal.done}
+              priority={goal.priority}
               // onDelete={props.onDeleteItem}
             >
               {goal.goal}

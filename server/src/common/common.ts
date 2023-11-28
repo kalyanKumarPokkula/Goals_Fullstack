@@ -18,6 +18,7 @@ export interface PayloadToJwt {
 export interface GoalPayload {
   goal: string;
   userId: string;
+  priority: string;
 }
 
 interface Response {

@@ -10,11 +10,16 @@ import toast, { Toaster } from "react-hot-toast";
 const CourseInput = () => {
   const [enteredValue, setEnteredValue] = useState("");
   const [isValid, setIsValid] = useState(true);
+  const [selectedOption, setSelectedOption] = useState("Low");
   const setGoal = useSetRecoilState(goalState);
 
   const goalInputChangeHandler = event => {
     setEnteredValue(event.target.value);
     setIsValid(true);
+  };
+
+  const handleSelectChange = event => {
+    setSelectedOption(event.target.value);
   };
 
   const formSubmitHandler = event => {
@@ -26,7 +31,10 @@ const CourseInput = () => {
 
     const Payload = {
       goal: enteredValue,
+      priority: selectedOption,
     };
+
+    console.log(Payload);
 
     async function addGoal() {
       try {
@@ -47,6 +55,7 @@ const CourseInput = () => {
     }
     addGoal();
     setEnteredValue("");
+    setSelectedOption("Low");
   };
 
   return (
@@ -59,6 +68,19 @@ const CourseInput = () => {
           value={enteredValue}
           onChange={goalInputChangeHandler}
         />
+        <label>Priority</label>
+        <select
+          name="priority"
+          id="priority"
+          value={selectedOption}
+          onChange={handleSelectChange}
+        >
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="Urgent">Urgent</option>
+        </select>
       </div>
       <Button type="submit">Add Goal</Button>
     </form>
