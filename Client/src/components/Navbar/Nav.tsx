@@ -30,8 +30,20 @@ const Nav = () => {
             <div className="link-to-goals" onClick={() => navigator("/goal")}>
               <h4>Goals</h4>
             </div>
-            <div>
-              <h3>{user.username}</h3>
+            <div
+              className="avator"
+              onClick={() => {
+                navigator(`/profile/${user.username}`);
+              }}
+            >
+              <h3
+                style={{
+                  color: "#fad0ec",
+                  fontSize: "16px",
+                }}
+              >
+                {user.username[0]}
+              </h3>
             </div>
 
             <button

@@ -9,6 +9,7 @@ import { useSetRecoilState } from "recoil";
 import { useEffect } from "react";
 import { authState } from "./Store/AuthState";
 import NewPassword from "./components/Authentication/NewPassword";
+import Profile from "./components/Profile/Profile";
 
 // import Verify from "./components/VerifyEmail/Verify";
 
@@ -98,6 +99,7 @@ const App = () => {
             </section>
           }
         />
+        <Route path="/profile/:id" element={<Profile />} />
       </Routes>
     </div>
   );

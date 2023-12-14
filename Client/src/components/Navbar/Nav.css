@@ -20,6 +20,17 @@
   color: #8b005d;
 }
 
+.nav .avator {
+  height: 35px;
+  width: 80px;
+  background-color: #8b005d;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
 .nav div .link-to-goals h4:hover {
   border-bottom: 2px solid #8b005d;
 }
