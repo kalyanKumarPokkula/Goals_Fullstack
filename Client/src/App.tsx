@@ -18,6 +18,7 @@ import BASE_URL from "./config";
 import Landing from "./components/LandingPage/Landing";
 import ReSendEmail from "./components/VerifyEmail/ReSendEmail";
 import ForgotPassword from "./components/Authentication/ForgotPassword";
+import Verify from "./components/VerifyEmail/Verify";
 
 const App = () => {
   const navigate = useNavigate();
@@ -53,10 +54,6 @@ const App = () => {
           path="/goal"
           element={
             <div>
-              <section className="form_layout">
-                <CourseInput />
-              </section>
-
               <section id="goals">
                 <CourseGoalList />
               </section>
@@ -72,6 +69,18 @@ const App = () => {
           }
         />
         <Route path="/send-verification-email" element={<ReSendEmail />} />
+        <Route path="/verify" element={<Verify />} />
+
+        <Route
+          path="/addgoal"
+          element={
+            <div>
+              <section className="form_layout">
+                <CourseInput />
+              </section>
+            </div>
+          }
+        />
 
         <Route
           path="/register"

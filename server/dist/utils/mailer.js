@@ -41,7 +41,7 @@ const sendEmail = (email, emailType, userId) => __awaiter(void 0, void 0, void 0
             to: email,
             subject: emailType === "VERIFY" ? "Verify your email" : "Reset your password",
             html: emailType === "VERIFY"
-                ? `<P>Click <a href="${config_1.DOMAIN}/api/auth/verifyemail?token=${hashedToken}">here</a> to ${emailType === "VERIFY"
+                ? `<P>Click <a href="${config_1.DOMAIN}/verify?token=${hashedToken}">here</a> to ${emailType === "VERIFY"
                     ? "Verify your email"
                     : "Reset your password"}</P>`
                 : `<P>Click <a href="${config_1.DOMAIN}/reset-password?token=${hashedToken}">here</a> to ${emailType === "VERIFY"

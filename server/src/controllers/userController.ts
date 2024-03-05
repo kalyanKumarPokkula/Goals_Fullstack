@@ -169,8 +169,8 @@ const resetPassword = async (req: Request, res: Response) => {
 
 const verifyEmail = async (req: Request, res: Response) => {
   try {
-    let { token } = req.query;
-    console.log(req.query);
+    let { token } = req.body;
+    console.log(req.body);
 
     console.log(token);
 

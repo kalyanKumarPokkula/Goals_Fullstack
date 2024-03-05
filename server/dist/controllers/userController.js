@@ -155,8 +155,8 @@ const resetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 exports.resetPassword = resetPassword;
 const verifyEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let { token } = req.query;
-        console.log(req.query);
+        let { token } = req.body;
+        console.log(req.body);
         console.log(token);
         let user = yield user_1.User.findOne({
             verifyToken: token,

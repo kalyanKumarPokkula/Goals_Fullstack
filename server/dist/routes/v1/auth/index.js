@@ -12,5 +12,5 @@ router.post("/signin", userController_1.signIn);
 router.get("/me", authenticateJwt_1.authenticateJWT, userController_1.user);
 router.post("/forgotten-password", userController_1.forgottenPassword);
 router.post("/reset-password", userController_1.resetPassword);
-router.get("/verifyemail", userController_1.verifyEmail);
+router.post("/verifyemail", userController_1.verifyEmail);
 exports.default = router;

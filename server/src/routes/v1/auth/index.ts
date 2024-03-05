@@ -17,6 +17,6 @@ router.get("/me", authenticateJWT, user);
 router.post("/forgotten-password", forgottenPassword);
 router.post("/reset-password", resetPassword);
 
-router.get("/verifyemail", verifyEmail);
+router.post("/verifyemail", verifyEmail);
 
 export default router;

@@ -38,7 +38,7 @@ const Nav = () => {
             >
               <h3
                 style={{
-                  color: "#fad0ec",
+                  color: "#FFFFFF",
                   fontSize: "16px",
                 }}
               >

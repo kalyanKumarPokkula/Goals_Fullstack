@@ -6,12 +6,14 @@ import { goalState } from "../../../Store/GoalState";
 import { useSetRecoilState } from "recoil";
 import BASE_URL from "../../../config";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const CourseInput = () => {
   const [enteredValue, setEnteredValue] = useState("");
   const [isValid, setIsValid] = useState(true);
   const [selectedOption, setSelectedOption] = useState("Low");
   const setGoal = useSetRecoilState(goalState);
+  const navigate = useNavigate();
 
   const goalInputChangeHandler = event => {
     setEnteredValue(event.target.value);
@@ -47,6 +49,9 @@ const CourseInput = () => {
         console.log(response.data);
         const notify = () => toast.success(response.data.message);
         notify();
+        setTimeout(() => {
+          navigate("/goal");
+        }, 1000);
 
         setGoal(pre => [...pre, response.data.data]);
       } catch (error) {

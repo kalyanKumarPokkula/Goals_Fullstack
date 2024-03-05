@@ -5,8 +5,10 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useEffect } from "react";
 import axios from "axios";
 import BASE_URL from "../../../config";
+import { useNavigate } from "react-router-dom";
 
 const CourseGoalList = () => {
+  const navigator = useNavigate();
   const goal = useRecoilValue(goalState);
   const setgoal = useSetRecoilState(goalState);
 
@@ -32,11 +34,28 @@ const CourseGoalList = () => {
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Goals List</h1>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <h1 style={{ textAlign: "center", fontSize: "34px" }}>Goals List</h1>
+
+        <button
+          className="goal-button"
+          onClick={() => {
+            navigator("/addgoal");
+          }}
+        >
+          Add Goal
+        </button>
+      </div>
 
       {goal.length == 0 && (
         <p
-          style={{ textAlign: "center", marginTop: "16px", fontSize: "1.2rem" }}
+          style={{ textAlign: "center", marginTop: "34px", fontSize: "1.2rem" }}
         >
           No goals found. Maybe add one?
         </p>

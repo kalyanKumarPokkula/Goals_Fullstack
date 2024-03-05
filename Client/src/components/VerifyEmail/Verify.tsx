@@ -22,6 +22,8 @@ const Verify = () => {
     };
     console.log("inside the verify");
 
+    console.log(newToken.token);
+
     async function init() {
       try {
         let response = await axios.post(
@@ -49,7 +51,7 @@ const Verify = () => {
       <div className="verify-layout">
         {!verified && (
           <>
-            <h1>Verify your email here...!</h1>
+            <h1>Verify your email here...! akhil</h1>
             <button className="btn" onClick={verifyHandler}>
               Verify
             </button>
