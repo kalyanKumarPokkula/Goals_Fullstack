@@ -15,10 +15,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api", API);
 
-app.use(express.static("public"));
-app.use("/*", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "/public/index.html"));
+app.get("/", (req, res) => {
+  res.send("Welcome to Goals!");
 });
+
+// app.use(express.static("public"));
+// app.use("/*", (req: Request, res: Response) => {
+//   res.sendFile(path.join(__dirname, "/public/index.html"));
+// });
 
 app.listen(PORT, () => {
   connect();

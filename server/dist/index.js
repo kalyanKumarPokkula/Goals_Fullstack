@@ -9,16 +9,18 @@ const db_1 = require("./configs/db");
 const routes_1 = __importDefault(require("./routes"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
-const path_1 = __importDefault(require("path"));
 const app = express();
 app.use((0, cors_1.default)());
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use("/api", routes_1.default);
-app.use(express.static("public"));
-app.use("/*", (req, res) => {
-    res.sendFile(path_1.default.join(__dirname, "/public/index.html"));
+app.get("/", (req, res) => {
+    res.send("Welcome to Goals!");
 });
+// app.use(express.static("public"));
+// app.use("/*", (req: Request, res: Response) => {
+//   res.sendFile(path.join(__dirname, "/public/index.html"));
+// });
 app.listen(config_1.PORT, () => {
     (0, db_1.connect)();
     console.log(`⚡️[server]: Server is running at http://localhost:${config_1.PORT}`);
