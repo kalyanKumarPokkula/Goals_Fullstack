@@ -75,11 +75,11 @@ The following technologies were used to build this application:
 
 ### login Page
 
-![login Screenshot](pics/loginpage.png.png)
+![login Screenshot](pics/loginpage.png)
 
 ### signup page
 
-![signup Screenshot](pics/signuppage.png.png)
+![signup Screenshot](pics/signuppage.png)
 
 ### verfiy page
 
