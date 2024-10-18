@@ -37,7 +37,7 @@ const sendEmail = (email, emailType, userId) => __awaiter(void 0, void 0, void 0
             });
         }
         const mailOptions = {
-            from: "kalyanakhil022@gmail.com",
+            from: "akhil6305964225@gmail.com",
             to: email,
             subject: emailType === "VERIFY" ? "Verify your email" : "Reset your password",
             html: emailType === "VERIFY"

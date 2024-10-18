@@ -22,8 +22,10 @@
     "recoil": "^0.7.7"
   },
   "devDependencies": {
-    "@types/react": "^18.2.15",
-    "@types/react-dom": "^18.2.7",
+    "@types/node": "^22.7.4",
+    "@types/prop-types": "^15.7.13",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",

@@ -6,6 +6,7 @@ import API from "./routes";
 import bodyParser from "body-parser";
 import cors from "cors";
 import path from "path";
+import transport from "./configs/emailConfig";
 
 const app: Express = express();
 
@@ -24,7 +25,7 @@ app.get("/", (req, res) => {
 //   res.sendFile(path.join(__dirname, "/public/index.html"));
 // });
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   connect();
   console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
 });

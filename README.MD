@@ -20,23 +20,19 @@ To run the application locally, follow these steps:
 git clone https://github.com/kalyanKumarPokkula/Goals_Fullstack.git
 ```
 
-2. Install the dependencies for Client and Server:
+2. Install the dependencies for Client and Server Start the development server:
 
 ```
 cd Client
 npm install
+npm run dev
 cd ..
 cd server
 npm install
+npm run dev
 ```
 
-3. Start the development server:
-
-```
-npm start
-```
-
-4. Open your browser and go to `http://localhost:3000` to access the application.
+3. Open your browser and go to `http://localhost:3000` to access the application.
 
 ## Usage
 
@@ -70,6 +66,44 @@ The following technologies were used to build this application:
      - `PORT`: Port number example: 3000.
      -
      ```
+
+## Screenshots
+
+### Homepage
+
+![Homepage Screenshot](pics/landingpage.png)
+
+### login Page
+
+![login Screenshot](pics/loginpage.png.png)
+
+### signup page
+
+![signup Screenshot](pics/signuppage.png.png)
+
+### verfiy page
+
+![verfiy page](pics/verify%20page.png)
+
+### successverificationpage
+
+![success verification page](pics/successverificationPage.png)
+
+### reset-password page
+
+![reset-password page](pics/reset-passwordPage.png)
+
+### goals list page
+
+![goals list page](pics/goallistPage.png)
+
+### forgot-password page
+
+![forgot-password page](pics/forgot-passwordPage.png)
+
+### Add New Goal page
+
+![Add New Goal Page](pics/addnewGoalPage.png)
 
 ## Contributing
 
